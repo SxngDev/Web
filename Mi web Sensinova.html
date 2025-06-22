@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENSI NOVA - Free Fire Gaming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+primary:'#6B00B3',
+secondary:'#00E6E6'
+},
+borderRadius:{
+'none':'0px',
+'sm':'4px',
+DEFAULT:'8px',
+'md':'12px',
+'lg':'16px',
+'xl':'20px',
+'2xl':'24px',
+'3xl':'32px',
+'full':'9999px',
+'button':'8px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+@keyframes pulse {
+0%, 100% { opacity: 0.8; }
+50% { opacity: 1; }
+}
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+@keyframes spin {
+from { transform: rotate(0deg); }
+to { transform: rotate(360deg); }
+}
+.animate-pulse {
+animation: pulse 2s infinite;
+}
+.animate-float {
+animation: float 6s ease-in-out infinite;
+}
+.animate-spin-slow {
+animation: spin 20s linear infinite;
+}
+.text-stroke {
+-webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+}
+.bg-grid {
+background-image:
+linear-gradient(rgba(107, 0, 179, 0.1) 1px, transparent 1px),
+linear-gradient(90deg, rgba(107, 0, 179, 0.1) 1px, transparent 1px);
+background-size: 20px 20px;
+}
+.glow {
+box-shadow: 0 0 15px rgba(107, 0, 179, 0.7);
+}
+.text-glow {
+text-shadow: 0 0 10px rgba(107, 0, 179, 0.7);
+}
+.metal-text {
+background: linear-gradient(180deg, #FFFFFF 0%, #C0C0C0 50%, #919191 100%);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+text-shadow: 0px 2px 3px rgba(0,0,0,0.3);
+}
+.cyber-button {
+position: relative;
+overflow: hidden;
+transition: all 0.3s;
+}
+.cyber-button:before {
+content: '';
+position: absolute;
+top: -2px;
+left: -2px;
+right: -2px;
+bottom: -2px;
+z-index: -1;
+background: linear-gradient(45deg, #6B00B3, #00E6E6, #6B00B3);
+background-size: 400%;
+animation: glowing 20s linear infinite;
+opacity: 0;
+transition: opacity 0.3s;
+border-radius: inherit;
+}
+.cyber-button:hover:before {
+opacity: 1;
+}
+.cyber-button:after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: -1;
+background: #000;
+border-radius: inherit;
+}
+@keyframes glowing {
+0% { background-position: 0 0; }
+50% { background-position: 400% 0; }
+100% { background-position: 0 0; }
+}
+.bg-noise {
+position: relative;
+}
+.bg-noise:after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+opacity: 0.05;
+pointer-events: none;
+}
+.clip-path-slant {
+clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+</style>
+</head>
+<body class="bg-black text-white min-h-screen">
+<!-- Navbar -->
+<nav class="border-b border-purple-900 bg-black bg-opacity-80 backdrop-blur-md sticky top-0 z-50">
+<div class="container mx-auto px-4 py-3 flex justify-between items-center">
+<div class="flex items-center space-x-2">
+<div class="relative w-10 h-10 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary rounded-full opacity-20 animate-pulse"></div>
+<span class="font-['Pacifico'] text-2xl metal-text">SN</span>
+</div>
+<span class="text-xl font-bold metal-text">SENSI NOVA</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a href="#inicio" class="hover:text-secondary transition-colors duration-300">Inicio</a>
+<a href="#servicios" class="hover:text-secondary transition-colors duration-300">Servicios</a>
+<a href="#productos" class="hover:text-secondary transition-colors duration-300">Productos</a>
+<a href="#contacto" class="hover:text-secondary transition-colors duration-300">Contacto</a>
+</div>
+<div class="flex items-center space-x-4">
+<a href="https://chat.whatsapp.com/EkYKV9XEURKHGsw3s6yXyo" class="cyber-button bg-primary hover:bg-opacity-80 text-white px-4 py-2 !rounded-button flex items-center space-x-2 transition-all duration-300">
+<i class="ri-whatsapp-fill text-lg"></i>
+<span class="whitespace-nowrap">Unirse</span>
+</a>
+<button class="md:hidden w-10 h-10 flex items-center justify-center">
+<i class="ri-menu-line text-2xl"></i>
+</button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative overflow-hidden min-h-screen flex items-center" id="inicio">
+<!-- Background with logo -->
+<div class="absolute inset-0 z-0">
+<img src="https://static.readdy.ai/image/5dd813da112b1edb3201a2a72e8b667c/795629126ae44a6e508ab5539abbd0f6.png" alt="SENSI NOVA Background" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-black/60"></div>
+<div class="absolute inset-0 bg-grid opacity-20"></div>
+<div class="absolute inset-0 bg-noise"></div>
+</div>
+<div class="container mx-auto px-4 py-20 md:py-32 relative z-10">
+<div class="flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 text-center md:text-left mb-12 md:mb-0">
+<h1 class="text-4xl md:text-6xl font-extrabold mb-6 text-glow">
+<span class="block metal-text">SENSI NOVA</span>
+<span class="text-secondary text-2xl md:text-3xl block mt-2">Domina Free Fire</span>
+</h1>
+<p class="text-gray-300 text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0">
+Eleva tu experiencia de juego con nuestras herramientas premium y servicios exclusivos para Free Fire.
+</p>
+<div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+<a href="#productos" class="cyber-button bg-primary hover:bg-opacity-80 text-white px-6 py-3 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300">
+Ver Productos
+</a>
+<a href="#contacto" class="cyber-button bg-transparent border-2 border-secondary hover:bg-secondary hover:bg-opacity-10 text-white px-6 py-3 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300">
+Contactar
+</a>
+</div>
+</div>
+<div class="md:w-1/2 relative">
+<div class="relative w-full h-80 md:h-96 animate-float">
+<div class="absolute inset-0 rounded-2xl overflow-hidden border border-purple-900 glow bg-black">
+<img src="https://readdy.ai/api/search-image?query=professional%20gaming%20setup%20with%20advanced%20holographic%20displays%20showing%20game%20statistics%20and%20player%20data%2C%20futuristic%20cyberpunk%20aesthetic%20with%20purple%20accent%20lighting%2C%20dark%20atmosphere%20with%20high-tech%20UI%20elements%2C%20clean%20and%20modern%20design&width=800&height=800&seq=7&orientation=squarish" alt="Professional Gaming Setup" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50"></div>
+</div>
+<!-- Floating elements -->
+<div class="absolute -top-5 -right-5 w-20 h-20 bg-primary bg-opacity-20 rounded-full blur-xl animate-pulse"></div>
+<div class="absolute -bottom-5 -left-5 w-16 h-16 bg-secondary bg-opacity-20 rounded-full blur-xl animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-20 relative bg-black" id="servicios">
+<div class="absolute inset-0 bg-grid opacity-10"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 metal-text">NUESTROS SERVICIOS</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Potencia tu experiencia en Free Fire con nuestras soluciones premium diseñadas para jugadores exigentes.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Service 1 -->
+<div class="bg-gradient-to-br from-gray-900 to-black p-6 rounded-lg border border-purple-900 hover:border-primary transition-all duration-300 group">
+<div class="w-16 h-16 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mb-6 group-hover:bg-opacity-30 transition-all duration-300">
+<i class="ri-crosshair-fill text-3xl text-secondary"></i>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-secondary transition-colors duration-300">AIMBOT</h3>
+<p class="text-gray-400 mb-4">Mejora tu precisión con nuestra tecnología avanzada de asistencia de apuntado. Disponible para todos los dispositivos.</p>
+<a href="#" class="inline-flex items-center text-secondary hover:underline">
+<span>Saber más</span>
+<i class="ri-arrow-right-line ml-2"></i>
+</a>
+</div>
+<!-- Service 2 -->
+<div class="bg-gradient-to-br from-gray-900 to-black p-6 rounded-lg border border-purple-900 hover:border-primary transition-all duration-300 group">
+<div class="w-16 h-16 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mb-6 group-hover:bg-opacity-30 transition-all duration-300">
+<i class="ri-eye-fill text-3xl text-secondary"></i>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-secondary transition-colors duration-300">HOLOGRAMA</h3>
+<p class="text-gray-400 mb-4">Visualiza a tus oponentes con claridad a través de obstáculos. Compatible con todos los dispositivos.</p>
+<a href="#" class="inline-flex items-center text-secondary hover:underline">
+<span>Saber más</span>
+<i class="ri-arrow-right-line ml-2"></i>
+</a>
+</div>
+<!-- Service 3 -->
+<div class="bg-gradient-to-br from-gray-900 to-black p-6 rounded-lg border border-purple-900 hover:border-primary transition-all duration-300 group">
+<div class="w-16 h-16 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mb-6 group-hover:bg-opacity-30 transition-all duration-300">
+<i class="ri-dashboard-3-fill text-3xl text-secondary"></i>
+</div>
+<h3 class="text-xl font-bold mb-3 group-hover:text-secondary transition-colors duration-300">PANELES</h3>
+<p class="text-gray-400 mb-4">Paneles personalizados para iOS, PC y Android con máxima seguridad y sin riesgo de ban.</p>
+<a href="#" class="inline-flex items-center text-secondary hover:underline">
+<span>Saber más</span>
+<i class="ri-arrow-right-line ml-2"></i>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Products Section -->
+<section class="py-20 relative bg-gradient-to-b from-black to-gray-900" id="productos">
+<div class="absolute inset-0 bg-grid opacity-10"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 metal-text">PRODUCTOS PREMIUM</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Descubre nuestra selección de herramientas y mejoras para dominar en Free Fire.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Product 1 -->
+<div class="bg-black rounded-lg overflow-hidden border border-purple-900 group hover:border-primary transition-all duration-300">
+<div class="h-48 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=advanced%20gaming%20interface%20with%20purple%20holographic%20display%20showing%20player%20statistics%20and%20targeting%20system%2C%20futuristic%20technology%2C%20cyberpunk%20aesthetic%2C%20dark%20background%20with%20neon%20accents%2C%20high%20detail&width=600&height=400&seq=2&orientation=landscape" alt="Aimbot Premium" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">POPULAR</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-2 group-hover:text-secondary transition-colors duration-300">Aimbot Premium</h3>
+<p class="text-gray-400 mb-4 text-sm">Asistencia de apuntado avanzada con detección automática de cabeza y ajuste de sensibilidad personalizable.</p>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold">$19.99 USD</span>
+<button class="cyber-button bg-primary hover:bg-opacity-80 text-white px-4 py-2 !rounded-button whitespace-nowrap transition-all duration-300">
+Comprar Ahora
+</button>
+</div>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="bg-black rounded-lg overflow-hidden border border-purple-900 group hover:border-primary transition-all duration-300">
+<div class="h-48 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=x-ray%20vision%20interface%20showing%20player%20outlines%20through%20walls%20with%20purple%20energy%20effects%2C%20high-tech%20gaming%20overlay%2C%20futuristic%20HUD%20elements%2C%20dark%20environment%20with%20glowing%20elements&width=600&height=400&seq=3&orientation=landscape" alt="Holograma Pro" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-2 group-hover:text-secondary transition-colors duration-300">Holograma Pro</h3>
+<p class="text-gray-400 mb-4 text-sm">Visualización de jugadores a través de obstáculos con indicador de distancia y nivel de salud.</p>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold">$24.99 USD</span>
+<button class="cyber-button bg-primary hover:bg-opacity-80 text-white px-4 py-2 !rounded-button whitespace-nowrap transition-all duration-300">
+Comprar Ahora
+</button>
+</div>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="bg-black rounded-lg overflow-hidden border border-purple-900 group hover:border-primary transition-all duration-300">
+<div class="h-48 overflow-hidden relative">
+<img src="https://readdy.ai/api/search-image?query=advanced%20gaming%20control%20panel%20with%20multiple%20screens%20showing%20game%20data%2C%20purple%20and%20blue%20interface%20elements%2C%20cyberpunk%20style%20dashboard%20with%20customization%20options%2C%20dark%20theme%20with%20glowing%20accents&width=600&height=400&seq=4&orientation=landscape" alt="Panel Elite" class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-secondary text-black text-xs font-bold px-2 py-1 rounded">NUEVO</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold mb-2 group-hover:text-secondary transition-colors duration-300">Panel Elite</h3>
+<p class="text-gray-400 mb-4 text-sm">Panel de control completo con todas las funciones premium y actualizaciones gratuitas por 6 meses.</p>
+<div class="flex justify-between items-center">
+<span class="text-secondary font-bold">$39.99 USD</span>
+<button class="cyber-button bg-primary hover:bg-opacity-80 text-white px-4 py-2 !rounded-button whitespace-nowrap transition-all duration-300">
+Comprar Ahora
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center">
+<a href="#" class="cyber-button bg-transparent border-2 border-secondary hover:bg-secondary hover:bg-opacity-10 text-white px-8 py-3 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300">
+Ver Todos los Productos
+</a>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-20 relative bg-black">
+<div class="absolute inset-0 bg-grid opacity-10"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 metal-text">CARACTERÍSTICAS EXCLUSIVAS</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Nuestras herramientas ofrecen ventajas únicas para mejorar tu rendimiento en Free Fire.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<div class="space-y-8">
+<!-- Feature 1 -->
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<i class="ri-shield-check-fill text-2xl text-secondary"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-2">Seguridad Garantizada</h3>
+<p class="text-gray-400">Nuestras herramientas utilizan tecnología anti-detección avanzada para minimizar el riesgo de ban. Protección garantizada para tu cuenta.</p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<i class="ri-device-fill text-2xl text-secondary"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-2">Compatibilidad Universal</h3>
+<p class="text-gray-400">Funciona perfectamente en todos los dispositivos: Android, iOS y emuladores para PC. Sincronización perfecta entre plataformas.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+<i class="ri-customer-service-fill text-2xl text-secondary"></i>
+</div>
+<div>
+<h3 class="text-xl font-bold mb-2">Soporte 24/7</h3>
+<p class="text-gray-400">Equipo de soporte técnico disponible las 24 horas para resolver cualquier problema o duda que puedas tener.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="relative w-full h-96 rounded-2xl overflow-hidden border border-purple-900 glow">
+<img src="https://readdy.ai/api/search-image?query=professional%20esports%20player%20with%20gaming%20headset%20in%20front%20of%20multiple%20screens%20showing%20Free%20Fire%20gameplay%2C%20cyberpunk%20aesthetic%20with%20purple%20lighting%2C%20dark%20gaming%20setup%20with%20RGB%20lights%2C%20dramatic%20lighting&width=600&height=600&seq=5&orientation=portrait" alt="Gaming Features" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+<!-- Overlay stats -->
+<div class="absolute bottom-0 left-0 right-0 p-6">
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-sm text-gray-400">Precisión</p>
+<div class="w-32 h-2 bg-gray-700 rounded-full mt-1">
+<div class="w-[90%] h-full bg-secondary rounded-full"></div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm text-gray-400">K/D Ratio</p>
+<p class="text-xl font-bold text-white">5.8</p>
+</div>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-gray-400">Victorias: <span class="text-white">78%</span></span>
+<span class="text-gray-400">Headshots: <span class="text-white">64%</span></span>
+<span class="text-gray-400">Supervivencia: <span class="text-white">92%</span></span>
+</div>
+</div>
+</div>
+<!-- Floating elements -->
+<div class="absolute -top-5 -left-5 w-20 h-20 bg-primary bg-opacity-20 rounded-full blur-xl animate-pulse"></div>
+<div class="absolute -bottom-5 -right-5 w-16 h-16 bg-secondary bg-opacity-20 rounded-full blur-xl animate-pulse"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-20 relative bg-gradient-to-b from-gray-900 to-black">
+<div class="absolute inset-0 bg-grid opacity-10"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 metal-text">TESTIMONIOS</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Lo que dicen nuestros usuarios sobre nuestros productos y servicios.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Testimonial 1 -->
+<div class="bg-black p-6 rounded-lg border border-purple-900">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-user-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">Carlos Mendoza</h4>
+<p class="text-gray-400 text-sm">Jugador Profesional</p>
+</div>
+</div>
+<p class="text-gray-300 mb-4">"Desde que uso el Aimbot Premium de SENSI NOVA, mi precisión ha mejorado drásticamente. He subido dos rangos en solo un mes. El soporte técnico es excelente."</p>
+<div class="flex text-secondary">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-black p-6 rounded-lg border border-purple-900">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-user-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">Alejandra Gutiérrez</h4>
+<p class="text-gray-400 text-sm">Streamer</p>
+</div>
+</div>
+<p class="text-gray-300 mb-4">"El Panel Elite es increíble, todas las funciones en un solo lugar y super fácil de usar. Mis seguidores no pueden creer cómo he mejorado. 100% recomendado."</p>
+<div class="flex text-secondary">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-black p-6 rounded-lg border border-purple-900">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-user-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">Miguel Ángel Rojas</h4>
+<p class="text-gray-400 text-sm">Jugador Casual</p>
+</div>
+</div>
+<p class="text-gray-300 mb-4">"Al principio estaba escéptico, pero después de probar el Holograma Pro, no puedo jugar sin él. La seguridad es excelente, llevo 3 meses usándolo sin problemas."</p>
+<div class="flex text-secondary">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-20 relative bg-black" id="faq">
+<div class="absolute inset-0 bg-grid opacity-10"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 metal-text">PREGUNTAS FRECUENTES</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">Respuestas a las dudas más comunes sobre nuestros productos y servicios.</p>
+</div>
+<div class="max-w-3xl mx-auto space-y-6">
+<!-- FAQ Item 1 -->
+<div class="border border-purple-900 rounded-lg overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 bg-gray-900 text-left focus:outline-none" id="faq-btn-1">
+<span class="font-bold">¿Es seguro usar estos productos?</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform duration-300"></i>
+</button>
+<div class="bg-black p-4 hidden" id="faq-content-1">
+<p class="text-gray-400">Sí, todos nuestros productos utilizan tecnología anti-detección avanzada que minimiza el riesgo de ban. Hemos desarrollado métodos seguros que no modifican archivos del juego, lo que hace que nuestras herramientas sean prácticamente indetectables. Sin embargo, recomendamos usar estas herramientas con moderación y seguir nuestras guías de uso.</p>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="border border-purple-900 rounded-lg overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 bg-gray-900 text-left focus:outline-none" id="faq-btn-2">
+<span class="font-bold">¿Cómo realizo el pago?</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform duration-300"></i>
+</button>
+<div class="bg-black p-4 hidden" id="faq-content-2">
+<p class="text-gray-400">Aceptamos diversos métodos de pago, incluyendo PayPal, tarjetas de crédito/débito, y criptomonedas. Una vez realizada la compra, recibirás un correo electrónico con las instrucciones de descarga e instalación. Si prefieres, también puedes contactarnos por WhatsApp para coordinar otros métodos de pago disponibles en tu región.</p>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="border border-purple-900 rounded-lg overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 bg-gray-900 text-left focus:outline-none" id="faq-btn-3">
+<span class="font-bold">¿Funcionan en todos los dispositivos?</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform duration-300"></i>
+</button>
+<div class="bg-black p-4 hidden" id="faq-content-3">
+<p class="text-gray-400">Sí, nuestros productos son compatibles con Android, iOS y emuladores para PC. Cada producto viene con versiones específicas optimizadas para cada plataforma. Al momento de la compra, especifica qué dispositivo utilizas para recibir la versión correcta. También ofrecemos soporte técnico para ayudarte con la instalación en cualquier dispositivo.</p>
+</div>
+</div>
+<!-- FAQ Item 4 -->
+<div class="border border-purple-900 rounded-lg overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 bg-gray-900 text-left focus:outline-none" id="faq-btn-4">
+<span class="font-bold">¿Ofrecen soporte técnico?</span>
+<i class="ri-arrow-down-s-line text-xl transition-transform duration-300"></i>
+</button>
+<div class="bg-black p-4 hidden" id="faq-content-4">
+<p class="text-gray-400">Absolutamente. Contamos con un equipo de soporte técnico disponible 24/7 a través de nuestro grupo de WhatsApp y correo electrónico. Nuestros especialistas te ayudarán con cualquier problema de instalación, configuración o uso de nuestros productos. También ofrecemos tutoriales detallados y guías paso a paso para facilitar el proceso.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-20 relative bg-gradient-to-b from-black to-gray-900" id="contacto">
+<div class="absolute inset-0 bg-grid opacity-10"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 metal-text">CONTACTO</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">¿Tienes preguntas o necesitas ayuda? Estamos aquí para asistirte.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<form class="space-y-6">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-400 mb-1">Nombre</label>
+<input type="text" id="name" class="w-full bg-gray-900 border-none rounded p-3 text-white focus:ring-2 focus:ring-primary outline-none" placeholder="Tu nombre">
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-400 mb-1">Correo Electrónico</label>
+<input type="email" id="email" class="w-full bg-gray-900 border-none rounded p-3 text-white focus:ring-2 focus:ring-primary outline-none" placeholder="tu@email.com">
+</div>
+<div>
+<label for="subject" class="block text-sm font-medium text-gray-400 mb-1">Asunto</label>
+<select id="subject" class="w-full bg-gray-900 border-none rounded p-3 text-white focus:ring-2 focus:ring-primary outline-none pr-8 appearance-none">
+<option value="">Selecciona un asunto</option>
+<option value="support">Soporte Técnico</option>
+<option value="purchase">Información de Compra</option>
+<option value="refund">Reembolso</option>
+<option value="other">Otro</option>
+</select>
+<div class="relative">
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</div>
+</div>
+</div>
+<div>
+<label for="message" class="block text-sm font-medium text-gray-400 mb-1">Mensaje</label>
+<textarea id="message" rows="4" class="w-full bg-gray-900 border-none rounded p-3 text-white focus:ring-2 focus:ring-primary outline-none" placeholder="¿En qué podemos ayudarte?"></textarea>
+</div>
+<button type="submit" class="cyber-button bg-primary hover:bg-opacity-80 text-white px-6 py-3 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300 w-full">
+Enviar Mensaje
+</button>
+</form>
+</div>
+<div>
+<div class="bg-black p-8 rounded-lg border border-purple-900">
+<h3 class="text-2xl font-bold mb-6 text-center">Conéctate con Nosotros</h3>
+<div class="space-y-6">
+<div class="flex items-center">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-whatsapp-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">WhatsApp</h4>
+<a href="https://chat.whatsapp.com/EkYKV9XEURKHGsw3s6yXyo" class="text-gray-400 hover:text-secondary transition-colors">Unirse al grupo de soporte</a>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-mail-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">Correo Electrónico</h4>
+<a href="mailto:contacto@sensinova.com" class="text-gray-400 hover:text-secondary transition-colors">contacto@sensinova.com</a>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-instagram-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">Instagram</h4>
+<a href="#" class="text-gray-400 hover:text-secondary transition-colors">@sensinova_oficial</a>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-primary bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+<i class="ri-discord-fill text-xl text-secondary"></i>
+</div>
+<div>
+<h4 class="font-bold">Discord</h4>
+<a href="#" class="text-gray-400 hover:text-secondary transition-colors">Servidor SENSI NOVA</a>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-gray-800">
+<p class="text-center text-gray-400 mb-4">Horario de atención: 24/7</p>
+<div class="flex justify-center space-x-4">
+<a href="#" class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-facebook-fill text-secondary"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-twitter-x-fill text-secondary"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-youtube-fill text-secondary"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-tiktok-fill text-secondary"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-16 relative">
+<div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('https://readdy.ai/api/search-image?query=epic%20gaming%20battle%20scene%20with%20purple%20energy%20effects%2C%20dark%20futuristic%20environment%20with%20neon%20lights%2C%20dramatic%20action%20moment%20in%20Free%20Fire%20style%20game%2C%20cinematic%20wide%20shot&width=1280&height=400&seq=6&orientation=landscape'); background-size: cover; background-position: center;"></div>
+<div class="absolute inset-0 bg-noise"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-3xl md:text-4xl font-bold mb-6 metal-text">ÚNETE A LA ÉLITE DE FREE FIRE</h2>
+<p class="text-gray-300 text-lg mb-8">Mejora tu juego hoy mismo con nuestras herramientas premium y domina en cada partida.</p>
+<div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+<a href="#productos" class="cyber-button bg-primary hover:bg-opacity-80 text-white px-8 py-4 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300">
+Comprar Ahora
+</a>
+<a href="https://chat.whatsapp.com/EkYKV9XEURKHGsw3s6yXyo" class="cyber-button bg-transparent border-2 border-secondary hover:bg-secondary hover:bg-opacity-10 text-white px-8 py-4 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300 flex items-center justify-center">
+<i class="ri-whatsapp-fill mr-2 text-xl"></i>
+Unirse al Grupo
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-black py-12 border-t border-purple-900">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div>
+<div class="flex items-center space-x-2 mb-6">
+<div class="relative w-10 h-10 flex items-center justify-center">
+<div class="absolute inset-0 bg-primary rounded-full opacity-20"></div>
+<span class="font-['Pacifico'] text-2xl metal-text">SN</span>
+</div>
+<span class="text-xl font-bold metal-text">SENSI NOVA</span>
+</div>
+<p class="text-gray-400 mb-6">Elevando tu experiencia en Free Fire con tecnología de vanguardia y soluciones premium para jugadores exigentes.</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-facebook-fill text-gray-400 hover:text-secondary"></i>
+</a>
+<a href="#" class="w-8 h-8 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-twitter-x-fill text-gray-400 hover:text-secondary"></i>
+</a>
+<a href="#" class="w-8 h-8 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-instagram-fill text-gray-400 hover:text-secondary"></i>
+</a>
+<a href="#" class="w-8 h-8 bg-primary bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all">
+<i class="ri-youtube-fill text-gray-400 hover:text-secondary"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-6">Productos</h4>
+<ul class="space-y-3">
+<li><a href="#" class="text-gray-400 hover:text-secondary transition-colors">Aimbot Premium</a></li>
+<li><a href="#" class="text-gray-400 hover:text-secondary transition-colors">Holograma Pro</a></li>
+<li><a href="#" class="text-gray-400 hover:text-secondary transition-colors">Panel Elite</a></li>
+<li><a href="#" class="text-gray-400 hover:text-secondary transition-colors">Antiban Shield</a></li>
+<li><a href="#" class="text-gray-400 hover:text-secondary transition-colors">Paquete Completo</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-6">Enlaces Rápidos</h4>
+<ul class="space-y-3">
+<li><a href="#inicio" class="text-gray-400 hover:text-secondary transition-colors">Inicio</a></li>
+<li><a href="#servicios" class="text-gray-400 hover:text-secondary transition-colors">Servicios</a></li>
+<li><a href="#productos" class="text-gray-400 hover:text-secondary transition-colors">Productos</a></li>
+<li><a href="#faq" class="text-gray-400 hover:text-secondary transition-colors">FAQ</a></li>
+<li><a href="#contacto" class="text-gray-400 hover:text-secondary transition-colors">Contacto</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-6">Contacto</h4>
+<ul class="space-y-3">
+<li class="flex items-center">
+<i class="ri-whatsapp-fill text-secondary mr-3"></i>
+<a href="https://chat.whatsapp.com/EkYKV9XEURKHGsw3s6yXyo" class="text-gray-400 hover:text-secondary transition-colors">Grupo de WhatsApp</a>
+</li>
+<li class="flex items-center">
+<i class="ri-mail-fill text-secondary mr-3"></i>
+<a href="mailto:contacto@sensinova.com" class="text-gray-400 hover:text-secondary transition-colors">contacto@sensinova.com</a>
+</li>
+<li class="flex items-center">
+<i class="ri-discord-fill text-secondary mr-3"></i>
+<a href="#" class="text-gray-400 hover:text-secondary transition-colors">Discord</a>
+</li>
+<li class="flex items-center">
+<i class="ri-instagram-fill text-secondary mr-3"></i>
+<a href="#" class="text-gray-400 hover:text-secondary transition-colors">@sensinova_oficial</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 text-center">
+<p class="text-gray-500 text-sm">© 2025 SENSI NOVA. Todos los derechos reservados.</p>
+<p class="text-gray-600 text-xs mt-2">SENSI NOVA no está afiliado con Garena o Free Fire. Todos los nombres de productos y marcas son propiedad de sus respectivos dueños.</p>
+</div>
+</div>
+</footer>
+<!-- Scripts -->
+<script id="faq-toggle">
+document.addEventListener('DOMContentLoaded', function() {
+const faqButtons = document.querySelectorAll('[id^="faq-btn-"]');
+faqButtons.forEach(button => {
+button.addEventListener('click', function() {
+const contentId = this.id.replace('btn', 'content');
+const content = document.getElementById(contentId);
+const arrow = this.querySelector('i');
+// Toggle current FAQ
+content.classList.toggle('hidden');
+arrow.classList.toggle('rotate-180');
+// Close other FAQs
+faqButtons.forEach(otherButton => {
+if (otherButton !== button) {
+const otherContentId = otherButton.id.replace('btn', 'content');
+const otherContent = document.getElementById(otherContentId);
+const otherArrow = otherButton.querySelector('i');
+otherContent.classList.add('hidden');
+otherArrow.classList.remove('rotate-180');
+}
+});
+});
+});
+});
+</script>
+<script id="smooth-scroll">
+document.addEventListener('DOMContentLoaded', function() {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 80,
+behavior: 'smooth'
+});
+}
+});
+});
+});
+</script>
+<script id="mobile-menu">
+document.addEventListener('DOMContentLoaded', function() {
+const menuButton = document.querySelector('.md\\:hidden');
+const mobileMenu = document.createElement('div');
+mobileMenu.className = 'fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center space-y-8 transform transition-transform duration-300 translate-x-full';
+mobileMenu.innerHTML = `
+<button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center">
+<i class="ri-close-line text-3xl"></i>
+</button>
+<a href="#inicio" class="text-xl hover:text-secondary transition-colors duration-300">Inicio</a>
+<a href="#servicios" class="text-xl hover:text-secondary transition-colors duration-300">Servicios</a>
+<a href="#productos" class="text-xl hover:text-secondary transition-colors duration-300">Productos</a>
+<a href="#contacto" class="text-xl hover:text-secondary transition-colors duration-300">Contacto</a>
+<a href="https://chat.whatsapp.com/EkYKV9XEURKHGsw3s6yXyo" class="cyber-button bg-primary hover:bg-opacity-80 text-white px-6 py-3 !rounded-button font-bold text-lg whitespace-nowrap transition-all duration-300 mt-4 flex items-center">
+<i class="ri-whatsapp-fill mr-2"></i>
+<span>Unirse</span>
+</a>
+`;
+document.body.appendChild(mobileMenu);
+menuButton.addEventListener('click', function() {
+mobileMenu.classList.remove('translate-x-full');
+});
+mobileMenu.querySelector('button').addEventListener('click', function() {
+mobileMenu.classList.add('translate-x-full');
+});
+mobileMenu.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function() {
+mobileMenu.classList.add('translate-x-full');
+});
+});
+});
+</script>
+<script id="form-validation">
+document.addEventListener('DOMContentLoaded', function() {
+const form = document.querySelector('form');
+if (form) {
+form.addEventListener('submit', function(e) {
+e.preventDefault();
+const name = document.getElementById('name').value;
+const email = document.getElementById('email').value;
+const subject = document.getElementById('subject').value;
+const message = document.getElementById('message').value;
+let isValid = true;
+if (!name) {
+isValid = false;
+document.getElementById('name').classList.add('ring-2', 'ring-red-500');
+} else {
+document.getElementById('name').classList.remove('ring-2', 'ring-red-500');
+}
+if (!email || !email.includes('@')) {
+isValid = false;
+document.getElementById('email').classList.add('ring-2', 'ring-red-500');
+} else {
+document.getElementById('email').classList.remove('ring-2', 'ring-red-500');
+}
+if (!subject) {
+isValid = false;
+document.getElementById('subject').classList.add('ring-2', 'ring-red-500');
+} else {
+document.getElementById('subject').classList.remove('ring-2', 'ring-red-500');
+}
+if (!message) {
+isValid = false;
+document.getElementById('message').classList.add('ring-2', 'ring-red-500');
+} else {
+document.getElementById('message').classList.remove('ring-2', 'ring-red-500');
+}
+if (isValid) {
+// Create success message
+const successMessage = document.createElement('div');
+successMessage.className = 'bg-green-900 bg-opacity-20 border border-green-500 text-green-400 p-4 rounded mb-4';
+successMessage.innerHTML = 'Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.';
+// Insert before form
+form.parentNode.insertBefore(successMessage, form);
+// Reset form
+form.reset();
+// Remove message after 5 seconds
+setTimeout(() => {
+successMessage.remove();
+}, 5000);
+}
+});
+}
+});
+</script>
+</body>
+</html>
